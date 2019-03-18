@@ -59,7 +59,7 @@ public class Libretto {
 	 * 
 	 * Ricerca un {@link Voto} relativo al corso di cui e` specificato il nome
 	 * @param nomeEsame nome del corso da ricercare
-	 * @return 
+	 * @return il {@linkVoto} corrisspondente, oppure {@code null} se non esistente
 	 */
 	public Voto cercaEsame (String nomeEsame) {
 		for(Voto v: voti) {
@@ -71,6 +71,25 @@ public class Libretto {
 		//System.out.println("Non ci sono voti corrispondenti al corso " +nomeEsame+ "\n");
 		return null;
 			
+	}
+	
+	/**
+	 * Dato un {@link Voto} determina se esiste gia un voto con uguale punteggio
+	 * 
+	 * @param v
+	 * @return {@code true}, se ha trovato un corso  e punteggio uguali, 
+	 * 		   {@code false} se non ha trovato il corso, oppure l'ha trovato con voto diverso
+	 */
+	public boolean esisteGiaVoto(Voto v) {
+		Voto trovato = this.cercaEsame(v.getCorso());
+		if(trovato==null)
+			return false;
+		if(trovato.getPunti()==v.getPunti()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 }
