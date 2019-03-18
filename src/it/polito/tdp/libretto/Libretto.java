@@ -38,25 +38,37 @@ public class Libretto {
 		}
 		System.out.println("\n");
 	}
+	/**Seleziona il sottoiniseme di voti che hanno il punteggio specificato
+	 * 
+	 * 
+	 * @param punti punteggio da ricerca
+	 * @return lista di {@link voto} aventi quel punteggio
+	 */
 	
-	public List<Voto> cercaVoti(int voto){
+	
+	public List<Voto> cercaVoti(int punti){
 		List<Voto> result = new ArrayList <Voto>();
 		for(Voto v: voti) {
-			if(v.getPunti()==voto) {
+			if(v.getPunti()==punti) {
 				result.add(v);} //sto aggiungendo lo stesso oggetto che viene linkato  a questa seconda lista=  non vengono creati dei nuovi oggetti, i voti sono sempre 10 
 			}
 		return result;
 	}
-	public List<Voto> trovaVoto (String nomeEsame) {
-		
-		List<Voto> result = new ArrayList <Voto>();
+	
+	/**
+	 * 
+	 * Ricerca un {@link Voto} relativo al corso di cui e` specificato il nome
+	 * @param nomeEsame nome del corso da ricercare
+	 * @return 
+	 */
+	public Voto cercaEsame (String nomeEsame) {
 		for(Voto v: voti) {
-			if(v.getCorso().compareTo(nomeEsame)==0) {
-				result.add(v);
-				return result; //metto return perche non ci possono essere esami duplicati
+			//Bisogna usare equals perche guarda se il contenuto e uguale  if(v.getCorso().compareTo(nomeEsame)==0) { si puo` usare == se confrontiamo variabili semplici (int o char)
+			if(v.getCorso().equals(nomeEsame)) {
+				return v; //metto return perche non ci possono essere esami duplicati
 			}
 		}
-		System.out.println("Non ci sono voti corrispondenti al corso " +nomeEsame+ "\n");
+		//System.out.println("Non ci sono voti corrispondenti al corso " +nomeEsame+ "\n");
 		return null;
 			
 	}
