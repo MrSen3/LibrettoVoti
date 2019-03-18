@@ -12,11 +12,6 @@ public class Libretto {
 		this.voti = new ArrayList<Voto>();//devo mantenere le interfacce più generali possibile, mentre le  implementazioni più specifiche
 	}
 	
-	public void add(int voto, String corso, LocalDate data) {
-		Voto v = new Voto (voto, corso, data);
-		voti.add(v);
-	}
-	
 	/**
 	 * Aggiunge il nuovo voto al libretto
 	 * 
@@ -29,47 +24,41 @@ public class Libretto {
 		//delega 
 	}
 	
+	//Inutile
+	public void add(int voto, String corso, LocalDate data) {
+		Voto v = new Voto (voto, corso, data);
+		voti.add(v);
+	}
+	
 	public void stampaLibretto() {
-		System.out.println("Libretto di Amebibbi bitch: \n");
-		for (Voto v: voti) {
+		System.out.println("Libretto: \n");
+		for (Voto v: this.voti) {
 			//System.out.println(v.getVoto()+ " " +v.getCorso()+ " " +v.getData());
 			System.out.println(v.toString());
 		}
-		
 		System.out.println("\n");
-			
-	}
-
-	public void stampa25() {
-		boolean trovato=false;
-		System.out.println("Voti = 25: \n");
-		for(Voto v: voti) {
-			if(v.getVoto()==25) {
-				trovato=true;
-				System.out.println("- " +v.getCorso()+ "\n");	
-			}
-		}
-		if(trovato==false)
-			System.out.println("Non ci sono voti pari a 25\n");
 	}
 	
-	public void trovaVoto (String nomeEsame) {
-		boolean trovato=false;
+	public List<Voto> cercaVoti(int voto){
+		List<Voto> result = new ArrayList <Voto>();
+		for(Voto v: voti) {
+			if(v.getPunti()==voto) {
+				result.add(v);} //sto aggiungendo lo stesso oggetto che viene linkato  a questa seconda lista=  non vengono creati dei nuovi oggetti, i voti sono sempre 10 
+			}
+		return result;
+	}
+	public List<Voto> trovaVoto (String nomeEsame) {
+		
+		List<Voto> result = new ArrayList <Voto>();
 		for(Voto v: voti) {
 			if(v.getCorso().compareTo(nomeEsame)==0) {
-				trovato=true;
-				System.out.println("Hai preso " +v.getVoto()+ " di " +nomeEsame+ "\n");
-				return; //metto return perche non ci possono essere esami duplicati
+				result.add(v);
+				return result; //metto return perche non ci possono essere esami duplicati
 			}
 		}
-		if(trovato==false)
-			System.out.println("Non ci sono voti corrispondenti al corso " +nomeEsame+ "\n");
-		
-		
-	}
-	
-	public void esiste() {
-		
+		System.out.println("Non ci sono voti corrispondenti al corso " +nomeEsame+ "\n");
+		return null;
+			
 	}
 
 }
