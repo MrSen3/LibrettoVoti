@@ -9,7 +9,7 @@ public class TestLibretto {
 		// TODO Auto-generated method stub
 		Libretto libretto= new Libretto();
 				
-		libretto.add(new Voto(18, "Fisica 1", LocalDate.of(2019, 01, 17)));
+		libretto.add(new Voto(18, "Geometria", LocalDate.of(2019, 01, 17)));
 		libretto.add(new Voto(24, "Analisi 1", LocalDate.of(2017, 02, 02)));
 		libretto.add(new Voto(25, "Ricerca operativa", LocalDate.of(2018, 06, 27)));
 		libretto.add(new Voto(25, "Sistemi elettrici", LocalDate.of(2018, 07, 06)));
@@ -31,8 +31,13 @@ public class TestLibretto {
 		System.out.println(a1);
 		System.out.println(a2);
 		
+		Voto giusto = new Voto(18, "Geometria", LocalDate.now());
+		Voto sbagliato = new Voto (28, "Geometria", LocalDate.now());
+		Voto mancante = new Voto(30, "Merendine", LocalDate.now());
 		
-		
+		System.out.format("Il voto %s è %s\n", giusto.toString(), libretto.esisteGiaVoto(giusto));
+		System.out.format("Il voto %s è %s\n", sbagliato.toString(), libretto.esisteGiaVoto(sbagliato));
+		System.out.format("Il voto %s è %s\n", mancante.toString(), libretto.esisteGiaVoto(mancante));
 	}
 
 }

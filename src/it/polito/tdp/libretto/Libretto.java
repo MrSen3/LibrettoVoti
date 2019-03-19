@@ -23,21 +23,7 @@ public class Libretto {
 		voti.add(v);
 		//delega 
 	}
-	
-	//Inutile
-	public void add(int voto, String corso, LocalDate data) {
-		Voto v = new Voto (voto, corso, data);
-		voti.add(v);
-	}
-	
-	public void stampaLibretto() {
-		System.out.println("Libretto: \n");
-		for (Voto v: this.voti) {
-			//System.out.println(v.getVoto()+ " " +v.getCorso()+ " " +v.getData());
-			System.out.println(v.toString());
-		}
-		System.out.println("\n");
-	}
+
 	/**Seleziona il sottoiniseme di voti che hanno il punteggio specificato
 	 * 
 	 * 
@@ -62,14 +48,12 @@ public class Libretto {
 	 * @return il {@linkVoto} corrisspondente, oppure {@code null} se non esistente
 	 */
 	public Voto cercaEsame (String nomeEsame) {
-		for(Voto v: voti) {
-			//Bisogna usare equals perche guarda se il contenuto e uguale  if(v.getCorso().compareTo(nomeEsame)==0) { si puo` usare == se confrontiamo variabili semplici (int o char)
-			if(v.getCorso().equals(nomeEsame)) {
-				return v; //metto return perche non ci possono essere esami duplicati
-			}
-		}
-		//System.out.println("Non ci sono voti corrispondenti al corso " +nomeEsame+ "\n");
-		return null;
+		Voto voto = new Voto(0, nomeEsame, null); //sembra sbagliato ma in realta confronta tramite il metodo equals il quale confronta solo i nomi dei corsi quindi posso creare un voto fasullo come questo
+		int pos = this.voti.indexOf(voto);
+		if(pos==-1)
+			return null;
+		else
+			return this.voti.get(pos);
 			
 	}
 	
@@ -81,15 +65,12 @@ public class Libretto {
 	 * 		   {@code false} se non ha trovato il corso, oppure l'ha trovato con voto diverso
 	 */
 	public boolean esisteGiaVoto(Voto v) {
-		Voto trovato = this.cercaEsame(v.getCorso());
-		if(trovato==null)
+		int pos = this.voti.indexOf(v);
+		if(pos==-1)//non contiene v
 			return false;
-		if(trovato.getPunti()==v.getPunti()) {
-			return true;
-		} else {
-			return false;
+		else 
+			return(v.getPunti() == this.voti.get(pos).getPunti());
+
 		}
-		
-	}
 
 }
